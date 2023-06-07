@@ -1,39 +1,50 @@
-import { Navigate, createBrowserRouter } from "react-router-dom";
-import Login from "./Views/Login";
-import Signup from "./Views/Signup";
-import Users from "./Views/Users";
-import NotFound from "./Views/NotFound";
+import { createBrowserRouter, Navigate } from "react-router-dom";
+import Dashboard from "./views/Dashboard.jsx";
 import DefaultLayout from "./components/DefaultLayout";
 import GuestLayout from "./components/GuestLayout";
-import Dashboard from "./components/Dashboard";
-
+import Login from "./views/Login";
+import NotFound from "./views/NotFound";
+import Signup from "./views/Signup";
+import Users from "./views/Users";
+import UserFormReg from "./views/UserFormReg"
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <GuestLayout />,
-        Children: [
-            {
-                path: "/signup",
-                element: <Signup />,
-            },
-            { path: "/login", element: <Login /> },
-        ],
-    },
-    {
-        path: "/defaultLayout",
         element: <DefaultLayout />,
         children: [
             {
-                path: "/users",
-                element: <Users />,
+                path: "/",
+                element: <Navigate to="/users" />,
             },
             {
                 path: "/dashboard",
                 element: <Dashboard />,
             },
             {
-                path: "/",
-                element: <Navigate to="users" />,
+                path: "/users",
+                element: <Users />,
+            },
+            {
+                path: "/users/new",
+                element: <UserFormReg key="userCreate" />,
+            },
+            {
+                path: "/users/:id",
+                element: <UserFormReg key="userUpdate" />,
+            },
+        ],
+    },
+    {
+        path: "/",
+        element: <GuestLayout />,
+        children: [
+            {
+                path: "/login",
+                element: <Login />,
+            },
+            {
+                path: "/signup",
+                element: <Signup />,
             },
         ],
     },
